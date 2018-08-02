@@ -19,7 +19,7 @@ kubectl --namespace product-foo-api describe pod/api-server-0
 kubectl --namespace product-foo-api exec api-server-0 /bin/bazz
 ```
 
-With Kube Namespace running multiple commands in the same workspace is much simplier:
+With Kube Namespace running multiple commands in the same namespace is much simplier:
 
 ```
 kubens use product-foo-api
