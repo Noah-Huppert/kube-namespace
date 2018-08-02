@@ -20,7 +20,7 @@ function kubens() {
 		fi
 
 		export KUBENS_NAMESPACE="$namespace"
-		echo "Using \"$namespace\" Kubernetes namespace"
+		kubens show
 	elif [[ "$cmd" == "show" ]]; then
 		# If namespace is set
 		if [ ! -z "$KUBENS_NAMESPACE" ]; then
