@@ -28,6 +28,12 @@ argument can be used as normal:
 kubectl --namespace foo-bar get all
 ```
 
+To see what namespace you are working in:
+
+```
+kubens show
+```
+
 To stop working in a specific namespace:
 
 ```
@@ -42,10 +48,10 @@ Complete the following steps to install Kube Namespace:
    ```
    git clone git@github.com:Noah-Huppert:kube-namespace.git <install directory>
    ```
-2. Add the Kube Namespace repository to your path
+2. Source the `kubens` file in the Kube Namespace repository
    ```
    # In your shell profile
-   export PATH="$PATH:<install directory>
+   . <install directory>/kubens
    ```
 3. Make an alias to the Kube Namespace command
    ```
@@ -55,13 +61,16 @@ Complete the following steps to install Kube Namespace:
    This allows you to use the `kubectl` with enhanced namespace functionality
 
 # How It Works
-Kube Namespace provides a single `kubens` bash script.  
+Kube Namespace provides a simple `kubens` bash function.  
 
-This bash script has 3 sub-commands:
+This function has 4 sub-commands:
 
 - `use NAMESPACE`
 	- Records which Kubernetes namespace the user wants to work in by 
 	  settings the `KUBENS_NAMESPACE` environment variable
+- `show`
+	- Shows which Kubernetes namespace a user is working in by printing the 
+	  `KUBENS_NAMESPACE` environment variable
 - `exit`
 	- Clears the desired Kubernetes namespace by upsetting the 
 	  `KUBENS_NAMESPACE` environment variable

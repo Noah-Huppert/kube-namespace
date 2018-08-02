@@ -1,38 +1,51 @@
 #!/usr/bin/env bash
 
-# Get sub command
-cmd="$1"
-if [ -z "$cmd" ]; then
-	echo "Error: sub-command must be provided, sub-commands: use, run, exit" >&2
-	exit 1
-fi
+# Exit on any error
+#set -e
 
-shift
-
-# Run sub command
-if [[ "$cmd" == "use" ]]; then
-	# Namespace arg
-	namespace="$1"
-	if [ -z "$namespace" ]; then
-		echo "Error: use sub-command requires the NAMESPACE argument" >&2
-		exit 1
+function kubens() {
+	# Get sub command
+	cmd="$1"
+	if [ -z "$cmd" ]; then
+		echo "Error: sub-command must be provided, sub-commands: use, show, run, exit" >&2
+		return 1
 	fi
 
-	export KUBENS_NAMESPACE="$namespace"
-	echo "Using \"$namespace\" Kubernetes namespace"
-elif [[ "$cmd" == "run" ]]; then
-	# If a namespace is set
-	if [ ! -z "$KUBENS_NAMESPACE" ]; then
-		# Invoke kubectl with the namespace argument
-		kubectl --namespace "$KUBENS_NAMESPACE" $@
+	shift
+
+	# Run sub command
+	if [[ "$cmd" == "use" ]]; then
+		# Namespace arg
+		namespace="$1"
+		if [ -z "$namespace" ]; then
+			echo "Error: use sub-command requires the NAMESPACE argument" >&2
+			return 1
+		fi
+
+		export KUBENS_NAMESPACE="$namespace"
+		echo "Using \"$namespace\" Kubernetes namespace"
+	elif [[ "$cmd" == "show" ]]; then
+		# If namespace is set
+		if [ ! -z "$KUBENS_NAMESPACE" ]; then
+			echo "Working in \"$KUBENS_NAMESPACE\" Kubernetes namespace"
+		else
+			# If no namespace set
+			echo "No Kubernetes workspace set"
+		fi
+	elif [[ "$cmd" == "run" ]]; then
+		# If a namespace is set
+		if [ ! -z "$KUBENS_NAMESPACE" ]; then
+			# Invoke kubectl with the namespace argument
+			/usr/bin/env kubectl --namespace "$KUBENS_NAMESPACE" $@
+		else
+			# If no namespace set, do not invoke with the namespace argument
+			/usr/bin/env kubectl $@
+		fi
+	elif [[ "$cmd" == "exit" ]]; then
+		unset KUBENS_NAMESPACE
+		echo "Kubernetes namespace unset"
 	else
-		# If no namespace set, do not invoke with the namespace argument
-		kubectl $@
+		echo "Error: unknown sub-command \"$cmd\", sub-commands: use, show, run, exit" >&2
+		return 1
 	fi
-elif [[ "$cmd" == "exit" ]]; then
-	unset KUBENS_NAMESPACE
-else
-	echo "Error: unknown sub-command \"$cmd\", sub-commands: use, run, exit" >&2
-	exit 1
-fi
-
+}
