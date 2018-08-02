@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+# Get sub command
+cmd="$1"
+if [ -z "$cmd" ]; then
+	echo "Error: sub-command must be provided, sub-commands: use, run, exit" >&2
+	exit 1
+fi
+
+shift
+
+# Run sub command
+if [[ "$cmd" == "use" ]]; then
+	# Namespace arg
+	namespace="$1"
+	if [ -z "$namespace" ]; then
+		echo "Error: use sub-command requires the NAMESPACE argument" >&2
+		exit 1
+	fi
+
+	export KUBENS_NAMESPACE="$namespace"
+	echo "Using \"$namespace\" Kubernetes namespace"
+elif [[ "$cmd" == "run" ]]; then
+	# If a namespace is set
+	if [ ! -z "$KUBENS_NAMESPACE" ]; then
+		# Invoke kubectl with the namespace argument
+		kubectl --namespace "$KUBENS_NAMESPACE" $@
+	else
+		# If no namespace set, do not invoke with the namespace argument
+		kubectl $@
+	fi
+elif [[ "$cmd" == "exit" ]]; then
+	unset KUBENS_NAMESPACE
+else
+	echo "Error: unknown sub-command \"$cmd\", sub-commands: use, run, exit" >&2
+	exit 1
+fi
+
