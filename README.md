@@ -7,7 +7,8 @@ Run all kubectl commands in the same namespace.
 - [How It Works](#how-it-works)
 
 # Overview
-Kube Namespace makes it easier to run multiple commands in the same namespace.  
+Kube Namespace makes it easier to run multiple `kubectl` commands in the same
+namespace.  
 
 Simply indicate which namespace you would like to work in:
 
