@@ -1,5 +1,5 @@
 # Kube Namespace
-Run all kubectl commands in the same namespace.
+Run multiple kubectl commands in the same namespace.
 
 # Table Of Contents
 - [Overview](#overview)
