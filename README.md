@@ -3,6 +3,7 @@ Run multiple kubectl commands in the same namespace.
 
 # Table Of Contents
 - [Overview](#overview)
+- [Tutorial](#tutorial)
 - [Install](#install)
 - [How It Works](#how-it-works)
 
@@ -10,7 +11,26 @@ Run multiple kubectl commands in the same namespace.
 Kube Namespace makes it easier to run multiple `kubectl` commands in the same
 namespace.  
 
-Simply indicate which namespace you would like to work in:
+Without Kube Namespace the `--namespace` argument would have to every `kubectl` command:
+
+```
+kubectl --namespace product-foo-api get all
+kubectl --namespace product-foo-api describe pod/api-server-0
+kubectl --namespace product-foo-api exec api-server-0 /bin/bazz
+```
+
+With Kube Namespace running multiple commands in the same workspace is much simplier:
+
+```
+kubens use product-foo-api
+
+kubectl get all
+kubectl describe pod/api-server-0
+kubectl exec api-server-0 /bin/bazz
+```
+
+# Tutorial
+First set which namespace you would like to work in:
 
 ```
 kubens use <namespace>
@@ -19,7 +39,8 @@ kubens use <namespace>
 Then run `kubectl` commands as you normally would:
 
 ```
-kubectl get all
+kubectl get services
+kubectl describe services/api-server
 ```
 
 If you need to override the namespace for one command the `kubectl --namespace` 
@@ -40,7 +61,6 @@ To stop working in a specific namespace:
 ```
 kubens exit
 ```
-
 
 # Install
 Complete the following steps to install Kube Namespace:
