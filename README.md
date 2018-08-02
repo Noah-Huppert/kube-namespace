@@ -68,12 +68,12 @@ This function has 4 sub-commands:
 
 - `use NAMESPACE`
 	- Records which Kubernetes namespace the user wants to work in by 
-	  settings the `KUBENS_NAMESPACE` environment variable
+	  setting the `KUBENS_NAMESPACE` environment variable
 - `show`
 	- Shows which Kubernetes namespace a user is working in by printing the 
 	  `KUBENS_NAMESPACE` environment variable
 - `exit`
-	- Clears the desired Kubernetes namespace by upsetting the 
+	- Clears the desired Kubernetes namespace by unsetting the 
 	  `KUBENS_NAMESPACE` environment variable
 - `run ARGS...`
 	- Executes the normal `kubectl` binary with the `--namespace` argument 
