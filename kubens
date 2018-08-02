@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# Exit on any error
-#set -e
-
 function kubens() {
 	# Get sub command
 	cmd="$1"
