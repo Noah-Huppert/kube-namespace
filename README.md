@@ -11,7 +11,7 @@ Run multiple kubectl commands in the same namespace.
 Kube Namespace makes it easier to run multiple `kubectl` commands in the same
 namespace.  
 
-Without Kube Namespace the `--namespace` argument would have to every `kubectl` command:
+Without Kube Namespace the `--namespace` argument would have to be given every `kubectl` command:
 
 ```
 kubectl --namespace product-foo-api get all
