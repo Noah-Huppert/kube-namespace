@@ -22,7 +22,7 @@ kubectl --namespace product-foo-api exec api-server-0 /bin/bazz
 With Kube Namespace running multiple commands in the same namespace is much simplier:
 
 ```
-kubens use product-foo-api
+kubens product-foo-api
 
 kubectl get all
 kubectl describe pod/api-server-0
@@ -33,6 +33,8 @@ kubectl exec api-server-0 /bin/bazz
 First set which namespace you would like to work in:
 
 ```
+kubens <namespace>
+# Or the longer form of the command
 kubens use <namespace>
 ```
 
@@ -53,6 +55,8 @@ kubectl --namespace foo-bar get all
 To see what namespace you are working in:
 
 ```
+kubens
+# Or the longer form of the command
 kubens show
 ```
 

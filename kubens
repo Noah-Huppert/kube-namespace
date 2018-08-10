@@ -4,8 +4,9 @@ function kubens() {
 	# Get sub command
 	cmd="$1"
 	if [ -z "$cmd" ]; then
-		echo "Error: sub-command must be provided, sub-commands: use, show, run, exit" >&2
-		return 1
+		# If no command provided, treat as shorthand for show command
+		kubens show
+		return
 	fi
 
 	shift
@@ -42,7 +43,8 @@ function kubens() {
 		unset KUBENS_NAMESPACE
 		echo "Kubernetes namespace unset"
 	else
-		echo "Error: unknown sub-command \"$cmd\", sub-commands: use, show, run, exit" >&2
-		return 1
+		# If no valid command is provided, treat as shorthand for
+		# use command
+		kubens use "$cmd"
 	fi
 }
