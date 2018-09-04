@@ -1,4 +1,8 @@
 # Change Log
+
+## 1.1.0
+- Added shorthand form for command invocations
+
 ## 1.0.2
 - Added release change log document
 
