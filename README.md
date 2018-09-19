@@ -1,3 +1,5 @@
+Project status: Complete | Maintaining
+
 # Kube Namespace
 Run multiple kubectl commands in the same namespace.
 
